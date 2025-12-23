@@ -1,0 +1,22 @@
+# --- Compiled Binaries ---
+# You don't want to track the actual executable, just the source code
+server
+webapp
+
+# --- Security & Data ---
+# NEVER track the database folder containing user credentials
+db/
+*.db
+*.sqlite
+*.json
+
+# --- Environment Configs ---
+# If you eventually use a .env file for secrets
+.env
+
+# --- OS Junk ---
+.DS_Store
+Thumbs.db
+
+# --- Nim being Nim ---
+nimcache/
