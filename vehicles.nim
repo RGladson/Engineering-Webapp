@@ -23,6 +23,7 @@ var
   dbMiles = 0
   dbPurchaseDate = 0
   dbOilDate = 0
+  dbNextOilMiles = 0
   dbInspectionDate = 0
   dbRegistrationDate = 0
   dbNotes = ""
@@ -47,6 +48,7 @@ try:
         Miles INTEGER,
         PurchaseDate INTEGER,
         OilDate INTEGER,
+        OilMiles INTEGER,
         InspectionDate INTEGER,
         RegistrationDate INTEGER,
         CleanedDateEng INTEGER,
@@ -169,11 +171,11 @@ while edit_mode:
     db.exec(sql"""
       INSERT INTO Vehicles (
         Unit, Make, Model, Year, VIN, TitleNumber, Plate, PolicyNumber, 
-        Driver, CardNumberLast4, Miles, PurchaseDate, OilDate, InspectionDate, 
+        Driver, CardNumberLast4, Miles, PurchaseDate, OilDate,  OilMiles, InspectionDate, 
         RegistrationDate, CleanedDateEng, CleanedDateNews, Notes, InService, InUse, InUseBy
-      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""",
+      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""",
       dbUnit, dbMake, dbModel, dbYear, dbVIN, dbTitleNumber, dbPlate, dbPolicyNumber, 
-      dbDriver, dbCardNumberLast4, dbMiles, dbPurchaseDate, dbOilDate, dbInspectionDate, 
+      dbDriver, dbCardNumberLast4, dbMiles, dbPurchaseDate, dbOilDate, dbNextOilMiles, dbInspectionDate, 
       dbRegistrationDate, dbCleanedDateEng, dbCleanedDateNews, dbNotes, int(dbInService), int(dbInUse), dbInUseBy)
     
     echo "Unit Added Successfully!"

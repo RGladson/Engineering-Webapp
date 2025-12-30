@@ -1,62 +1,32 @@
-import jester, asyncdispatch, htmlgen, bcrypt, json, os, strutils
+import jester
+import std/[os, strutils, times]
+import db_connector/db_sqlite
+
+# Import our new view file
+# Note: we use "include" here to easily share the Row type, 
+# but "import" works if you fix paths. Include is simplest for single-file splits.
+include templates/vehicle_list
+
+# Configuration
+const dbPath = "db/vehicles.db" 
 
 settings:
-  port = Port(8080)
+  port = Port(5000)
   bindAddr = "0.0.0.0"
 
 routes:
   get "/":
-    resp h1("WNCN Engineering Portal") & 
-         p("System is Online.") &
-         a(href="/login", "Login Here")
+    redirect "/vehicles"
 
-  get "/login":
-    resp h1("Staff Login") &
-         form(action="/login", `method`="POST",
-           p("Username: ", input(type="text", name="username")),
-           p("Password: ", input(type="password", name="password")),
-           input(type="submit", value="Login")
-         )
-
-  post "/login":
-    let username = @"username"
-    let password = @"password"
-    let dbPath = "db/users.json"
-
+  get "/vehicles":
     if not fileExists(dbPath):
-      resp "Error: User database not found. Admin needs to run add_user tool."
+      resp "Error: Database file not found."
 
-    let users = parseFile(dbPath)
-
-    if users.hasKey(username):
-      let storedHash = users[username].getStr()
-      
-      # FIX: Using 'compare' instead of 'verify'
-      # This matches the runarcn/nim-bcrypt library API
-      if compare(password, storedHash):
-        setCookie("user", username, daysForward(1))
-        redirect "/report"
-      else:
-        resp "Invalid password."
-    else:
-      resp "User not found."
-
-  get "/report":
-    if not request.cookies.hasKey("user"):
-      redirect "/login"
+    let db = open(dbPath, "", "", "")
     
-    let currentUser = request.cookies["user"]
-    
-    resp h1("Daily Report: " & currentUser) &
-         p("Fill out your engineering log below.") &
-         form(action="/submit", `method`="POST",
-           textarea(name="content", rows="10", cols="50", placeholder="Transmitter readings, bitrates, etc..."),
-           br(),
-           input(type="submit", value="Submit Log")
-         )
-         
-  get "/logout":
-    setCookie("user", "", daysForward(-1))
-    redirect "/"
+    # 1. Fetch Data
+    let rows = db.getAllRows(sql"SELECT * FROM Vehicles ORDER BY Unit")
+    db.close()
 
-runForever()
+    # 2. Render HTML using our external template file
+    resp renderVehicleList(rows)

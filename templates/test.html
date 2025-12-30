@@ -1,0 +1,83 @@
+<html lang="en"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WNCN Vehicle Fleet</title>
+    <style>
+      body { padding: 20px; background-color: #dc8a78; }
+      .table-container { background: #179299; padding: 20px; border-radius: 8px; box-shadow: 1 2px 4px rgba(0,0,0,0.1); }
+      .header-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+      .status-out { background-color: #fff3cd !important; }
+      .status-retired { opacity: 0.6; background-color: #f2f2f2 !important; }
+      .badge-out { background-color: #e78284; color: #000; }
+      .badge-in { background-color: #a6d189; }
+      .badge-retired { background-color: #e78284; }
+    </style>
+  </head>
+  <body>
+    <div class="container-fluid">
+      <div class="header-row">
+        <h1>Vehicles</h1>
+        <span class="text-muted">NEWS</span>
+      </div>
+
+      <div class="table-container">
+        <table class="table table-hover table-bordered align-middle">
+          <thead class="table-dark">
+            <tr>
+              <th>Unit</th>
+              <th>Vehicle</th>
+              <th>Assigned To</th>
+              <th>Status</th>
+              <th>Details</th>
+              <th>Maintenance Due</th>
+              <th>Notes</th>
+            </tr>
+          </thead>
+          <tbody>
+              <tr class="status-out">
+              <td class="fw-bold">Unit</td>
+              <td>2025 Make Model</td>
+              <td>Driver</td>
+              <td><span class="badge badge-out">OUT: Test</span></td>
+              <td>
+                <small>
+                  <strong>VIN:</strong> VIN<br>
+                  <strong>Plate:</strong> License Plate
+                </small>
+              </td>
+              <td>
+                <small>
+                  <strong>Oil:</strong> 20251230<br>
+                  <strong>Reg:</strong> 20251230<br>
+                  <strong>Miles:</strong> 0
+                </small>
+              </td>
+              <td>Test Unit</td>
+            </tr>
+                <tr class="status-retired">
+              <td class="fw-bold">test2</td>
+              <td>2024 TestFord TestEscape</td>
+              <td>test2Driver</td>
+              <td><span class="badge badge-retired">Out Of Service</span></td>
+              <td>
+                <small>
+                  <strong>VIN:</strong> testVIN<br>
+                  <strong>Plate:</strong> TestPlate
+                </small>
+              </td>
+              <td>
+                <small>
+                  <strong>Oil:</strong> 20250104<br>
+                  <strong>Reg:</strong> 20250102<br>
+                  <strong>Miles:</strong> 1
+                </small>
+              </td>
+              <td>TestNotes</td>
+            </tr>
+              </tbody>
+        </table>
+      </div>
+    </div>
+  
+  
+  </body></html>
